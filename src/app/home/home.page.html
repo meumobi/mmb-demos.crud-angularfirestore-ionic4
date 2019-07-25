@@ -7,13 +7,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-button expand="block" routerLink="/items" routerDirection="root">
+  <ion-button expand="block"routerLink="/items" routerDirection="root">
     Items list
   </ion-button>
   <ion-button expand="block" routerLink="/items/detail/123" routerDirection="root">
     Item detail
   </ion-button>
-  <ion-button expand="block" routerLink="/items/edit/123" routerDirection="root">
+  <a routerLink="/items/edit/123" [state]="{ title: 'Item Edit 123' }" routerDirection="root">
     Item edit
-  </ion-button>
+  </a>
 </ion-content>

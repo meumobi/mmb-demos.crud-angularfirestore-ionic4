@@ -9,18 +9,12 @@ export class AnalyticsService {
   constructor() { }
 
   setTracker(tracker) {
-    console.log('d');
-    console.log(tracker);
     if ( !localStorage.getItem('ga:clientId') ) {
       localStorage.setItem( 'ga:clientId', tracker.get('clientId') );
-      console.log('a');
-    } else {
-      console.log(tracker.get('clientId'));
     }
   }
 
   startTrackerWithId(id) {
-    console.log(id);
     ga('create', {
       storage: 'none',    ​
       trackingId: id,
@@ -30,10 +24,15 @@ export class AnalyticsService {
     ga('set', 'transportUrl', 'https://www.google-analytics.com/collect');
     ga(this.setTracker);
   }
-  trackView(screenName) {
-    ga('set', 'page', screenName);
+
+  trackView(pageUrl: string, screenName: string) {
+    ga('set', {
+      page: pageUrl,
+      title: screenName
+    });
     ga('send', 'pageview');
   }
+
   trackEvent(category, action, label?, value?) {
     ga('send', 'event', {
       eventCategory: category,
