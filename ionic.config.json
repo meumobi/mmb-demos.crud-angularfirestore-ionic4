@@ -1,0 +1,7 @@
+{
+  "name": "mmb-demos.crud-angularfirestore-ionic4",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
