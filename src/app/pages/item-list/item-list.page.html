@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>item-list</ion-title>
+    <ion-title>items-list</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-md="6" *ngFor="let item of items$ | async">
+        <ion-card button="true" routerLink="/item-detail/{{item.id}}">
+          <ion-img [src]="item.enclosure" *ngIf="item.enclosure"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle>News</ion-card-subtitle>
+            <ion-card-title>{{ item.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{ item.description }}
+          </ion-card-content>
+          <ion-row class="ion-justify-content-center">
+              <ion-col size="4" class="ion-text-left">
+                <div>
+                  {{ item.author }}
+                </div>
+              </ion-col>
+              <ion-col size="4" class="ion-text-center">
+                <div></div>
+              </ion-col>
+              <ion-col size="4" class="ion-text-right">
+                <div>
+                  {{ item.publishedAt.seconds*1000 | date: 'mediumDate' }}
+                </div>
+              </ion-col>
+            </ion-row> 
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add" routerLink="/item-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

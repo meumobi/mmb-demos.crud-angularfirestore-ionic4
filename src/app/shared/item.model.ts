@@ -1,17 +1,13 @@
+import { Timestamp } from '@firebase/firestore-types';
+
 export class Item {
   id?: string;
   title: string;
   description: string;
-  publishedAt: number; // Epoch timestamp
-  createdAt: number; // Epoch timestamp
-  modifiedAt: number; // Epoch timestamp
+  createdAt: Timestamp;
+  modifiedAt: Timestamp;
+  publishedAt: Timestamp;
   link: string;
-  enclosure: string;
+  enclosure: string = null;
   author: string;
-
-  constructor() {
-    this.publishedAt = Date.now();
-    this.createdAt = Date.now();
-    this.modifiedAt = Date.now();
-  }
 }

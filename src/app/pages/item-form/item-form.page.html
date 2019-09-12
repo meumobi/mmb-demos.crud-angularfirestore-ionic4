@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>item-form</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>item-edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="editItemForm" (submit)="save()">
+    <ion-item>
+      <ion-label stacked>Title</ion-label>
+      <ion-input
+        formControlName="title"
+        type="text"
+        [(ngModel)]="item.title"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Target groups</ion-label>
+      <ion-chip *ngFor="let group of groups; let i = index" (click)="toggleGroupCheck(i)">
+        <ion-icon name="checkmark" *ngIf="group.selected"></ion-icon>    
+        <ion-label>{{ group.name }}</ion-label>
+      </ion-chip> 
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Enclosure</ion-label>
+      <ion-input
+        formControlName="enclosure"
+        type="text"
+        [(ngModel)]="item.enclosure"
+      >
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label fixed>Description</ion-label>
+      <ion-textarea
+        formControlName="description"
+        type="text"
+        [(ngModel)]="item.description"
+      >
+      </ion-textarea>
+    </ion-item>
 
+    <ion-button expand="block" type="submit" [disabled]="!editItemForm.valid">
+      Save
+    </ion-button>
+  </form>
 </ion-content>
