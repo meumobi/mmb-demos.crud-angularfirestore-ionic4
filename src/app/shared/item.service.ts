@@ -18,14 +18,18 @@ import { Item } from './item.model';
 export class ItemService {
 
   private itemsCollection: AngularFirestoreCollection<Item>;
-  items$: Observable<Item[]>;
+  private collectionPath = 'items';
 
   constructor(
     private afs: AngularFirestore
   ) {
-    this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('publishedAt', 'desc'));
-    this.items$ = this.itemsCollection.valueChanges({idField: 'id'});
+    this.itemsCollection = afs.collection<Item>(this.collectionPath, ref => ref.orderBy('publishedAt', 'desc'));
   }
+
+  get items$(): Observable<Item[]> {
+    return this.itemsCollection.valueChanges({idField: 'id'});
+  }
+
 /**
  * Inspired by https://angularfirebase.com/lessons/firestore-advanced-usage-angularfire/#3-CRUD-Operations-with-Server-Timestamps
  */
