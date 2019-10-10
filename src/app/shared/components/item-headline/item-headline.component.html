@@ -1,4 +1,4 @@
-<ion-card button="true">
+<ion-card button="true" routerLink="/item-detail/{{ item.id }}">
   <ion-img [src]="item.enclosure" *ngIf="item.enclosure"></ion-img>
   <ion-card-header>
     <ion-card-subtitle>News</ion-card-subtitle>
@@ -8,18 +8,22 @@
     {{ item.description }}
   </ion-card-content>
   <ion-row class="ion-justify-content-center">
-      <ion-col size="4" class="ion-text-left">
-        <div>
-          {{ item.author }}
-        </div>
-      </ion-col>
-      <ion-col size="4" class="ion-text-center">
-        <div></div>
-      </ion-col>
-      <ion-col size="4" class="ion-text-right">
-        <div>
-          {{ item.createdAt.seconds*1000 | date: 'mediumDate' }}
-        </div>
-      </ion-col>
-    </ion-row> 
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="deleteItem($event, item.id)">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Delete
+      </ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="updateItem($event, item.id)">
+        <ion-icon name="create" slot="start"></ion-icon>
+        Update
+      </ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-right">
+      <div>
+        {{ item.createdAt.seconds*1000 | date: 'mediumDate' }}
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-card>
