@@ -8,7 +8,7 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12" size-md="6" *ngFor="let item of items$ | async">
-        <app-item-headline [item]="item" routerLink="/item-detail/{{item.id}}"></app-item-headline>
+        <app-item-headline [item]="item" (delete)="deleteItem($event)" (update)="updateItem($event)"></app-item-headline>
       </ion-col>
     </ion-row>
   </ion-grid>

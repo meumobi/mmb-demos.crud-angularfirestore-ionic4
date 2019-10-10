@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Item } from '../../item.model';
 
 @Component({
@@ -10,6 +17,8 @@ import { Item } from '../../item.model';
 export class ItemHeadlineComponent implements OnInit {
 
   @Input() item: Item;
+  @Output() delete: EventEmitter<string> = new EventEmitter<string>();
+  @Output() update: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
@@ -17,4 +26,11 @@ export class ItemHeadlineComponent implements OnInit {
     console.log(this.item);
   }
 
+  deleteItem(id: string) {
+    this.delete.emit(id);
+  }
+
+  updateItem(id: string) {
+    this.update.emit(id);
+  }
 }

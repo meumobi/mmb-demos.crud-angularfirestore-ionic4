@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemHeadlineComponent } from './components/item-headline/item-headline.component';
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -10,6 +12,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     IonicModule,
+    RouterModule,
   ],
   exports: [
     ItemHeadlineComponent,

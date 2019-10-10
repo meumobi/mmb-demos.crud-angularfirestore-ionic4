@@ -5,21 +5,27 @@
     <ion-card-title>{{ item.title }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    {{ item.description }}
+    <ion-item  detail="false" lines="none" routerLink="/item-detail/{{ item.id }}">
+      {{ item.description }}
+    </ion-item>
   </ion-card-content>
   <ion-row class="ion-justify-content-center">
-      <ion-col size="4" class="ion-text-left">
-        <div>
-          {{ item.author }}
-        </div>
-      </ion-col>
-      <ion-col size="4" class="ion-text-center">
-        <div></div>
-      </ion-col>
-      <ion-col size="4" class="ion-text-right">
-        <div>
-          {{ item.createdAt.seconds*1000 | date: 'mediumDate' }}
-        </div>
-      </ion-col>
-    </ion-row> 
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="deleteItem(item.id)">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Delete
+      </ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="updateItem(item.id)">
+        <ion-icon name="create" slot="start"></ion-icon>
+        Update
+      </ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-right">
+      <div>
+        {{ item.createdAt.seconds*1000 | date: 'mediumDate' }}
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-card>
