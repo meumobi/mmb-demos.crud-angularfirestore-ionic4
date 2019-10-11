@@ -101,8 +101,8 @@ constructor(
   }
 
   private update() {
-    const resultItem = {...this.item, ...this.editForm.value};
-    this.itemService.update(this.itemId, resultItem)
+    // const resultItem = {...this.item, ...this.editForm.value};
+    this.itemService.update(this.itemId, this.editForm.value)
     .then(docRef => {
       this.router.navigate([`/item-detail/${this.itemId}`]);
     })
