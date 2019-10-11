@@ -62,7 +62,7 @@ constructor(
     if (this.createAction) {
       this.item = new Item();
     } else {
-      this.itemService.getById(this.itemId).subscribe(
+      this.itemService.getById(this.itemId).toPromise().then(
         data => {
           this.item = data;
           /**
