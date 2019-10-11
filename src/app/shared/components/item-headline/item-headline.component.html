@@ -5,7 +5,9 @@
     <ion-card-title>{{ item.title }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    {{ item.description }}
+    <ion-item  detail="false" lines="none" routerLink="/item-detail/{{ item.id }}">
+      {{ item.description }}
+    </ion-item>
   </ion-card-content>
   <ion-row class="ion-justify-content-center">
     <ion-col size="4" class="ion-text-left">
