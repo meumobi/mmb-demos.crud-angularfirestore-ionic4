@@ -11,13 +11,13 @@
   </ion-card-content>
   <ion-row class="ion-justify-content-center">
     <ion-col size="4" class="ion-text-left">
-      <ion-button fill="clear" size="small" color="primary" (click)="deleteItem($event, item.id)">
+      <ion-button fill="clear" size="small" color="primary" (click)="deleteItem($event, item.id)" *ngIf="item.id">
         <ion-icon name="trash" slot="start"></ion-icon>
         Delete
       </ion-button>
     </ion-col>
     <ion-col size="4" class="ion-text-left">
-      <ion-button fill="clear" size="small" color="primary" (click)="updateItem($event, item.id)">
+      <ion-button fill="clear" size="small" color="primary" (click)="updateItem($event, item.id)" *ngIf="item.id">
         <ion-icon name="create" slot="start"></ion-icon>
         Update
       </ion-button>
