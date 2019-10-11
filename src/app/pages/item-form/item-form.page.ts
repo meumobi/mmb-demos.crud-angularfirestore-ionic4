@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Item } from 'src/app/shared/item.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../shared/item.service';
+import { first } from 'rxjs/operators';
 
 export interface Group {
   name: string;
@@ -62,7 +63,7 @@ constructor(
     if (this.createAction) {
       this.item = new Item();
     } else {
-      this.itemService.getById(this.itemId).toPromise().then(
+      this.itemService.getById(this.itemId).pipe(first()).toPromise().then(
         data => {
           this.item = data;
           /**
