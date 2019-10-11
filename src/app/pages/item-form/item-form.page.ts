@@ -33,8 +33,9 @@ export class ItemFormPage implements OnInit {
 
   groups: Group[] = [];
   item: Item;
-  createAction: boolean;
-  editItemForm: FormGroup;
+  private itemId: string;
+  private createAction: boolean;
+  editForm: FormGroup;
 
 constructor(
   formBuilder: FormBuilder,
@@ -45,7 +46,7 @@ constructor(
 
   const urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
-  this.editItemForm = formBuilder.group({
+  this.editForm = formBuilder.group({
     title: ['', Validators.required],
     // groups: ['', Validators.required],
     enclosure: ['', Validators.pattern(urlRegex)],
@@ -55,15 +56,22 @@ constructor(
 
   ngOnInit() {
     this.groups = GROUPS;
-    const itemId: string = this.activatedRoute.snapshot.paramMap.get('id');
-    this.createAction = !itemId; // If itemId is null then is a create action (vs update)
+    this.itemId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.createAction = !this.itemId; // If itemId is null then is a create action (vs update)
 
     if (this.createAction) {
       this.item = new Item();
     } else {
-      this.itemService.getById(itemId).subscribe(
+      this.itemService.getById(this.itemId).subscribe(
         data => {
           this.item = data;
+          /**
+           * Get a subset of a javascript object's properties
+           * Using Object Destructuring and Property Shorthand
+           * https://stackoverflow.com/a/39333479/4982169
+           */
+          const picked = (({ title, enclosure, description }) => ({ title, enclosure, description }))(data);
+          this.editForm.setValue(picked);
         }
       );
     }
@@ -74,9 +82,28 @@ constructor(
   }
 
   save() {
-    this.itemService.push(this.item)
+    if (this.createAction) {
+      this.create();
+    } else {
+      this.update();
+    }
+  }
+
+  private create() {
+    this.itemService.push(this.editForm.value)
     .then(docRef => {
       this.router.navigate([`/item-detail/${docRef.id}`]);
+    })
+    .catch(reason => {
+      console.log(reason);
+    });
+  }
+
+  private update() {
+    const resultItem = {...this.item, ...this.editForm.value};
+    this.itemService.update(this.itemId, resultItem)
+    .then(docRef => {
+      this.router.navigate([`/item-detail/${this.itemId}`]);
     })
     .catch(reason => {
       console.log(reason);

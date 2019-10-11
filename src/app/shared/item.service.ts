@@ -64,7 +64,7 @@ export class ItemService {
     return this.itemsCollection.doc(id).set(data);
   }
 
-  public update(item: Item): Promise<void> {
-    return this.itemsCollection.doc(item.id).update(item);
+  public update(id: string, data: any): Promise<void> {
+    return this.itemsCollection.doc(id).update(data);
   }
 }
