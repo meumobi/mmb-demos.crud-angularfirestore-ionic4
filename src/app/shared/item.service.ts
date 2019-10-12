@@ -39,6 +39,7 @@ export class ItemService {
 
   public push(item: any): Promise<DocumentReference> {
     const timestamp = this.timestamp;
+
     return this.itemsCollection.add({
       ...item,
       createdAt: timestamp,
@@ -61,10 +62,14 @@ export class ItemService {
    * - update(data: T) - Non-destructively updates a document's data.
    */
   public set(id: string, data: any): Promise<void> {
+    data.modifiedAt = this.timestamp;
+
     return this.itemsCollection.doc(id).set(data);
   }
 
   public update(id: string, data: any): Promise<void> {
+    data.modifiedAt = this.timestamp;
+
     return this.itemsCollection.doc(id).update(data);
   }
 }

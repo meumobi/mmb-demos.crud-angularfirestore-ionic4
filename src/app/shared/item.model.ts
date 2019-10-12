@@ -8,6 +8,6 @@ export class Item {
   modifiedAt: Timestamp;
   publishedAt: Timestamp;
   link: string;
-  enclosure: string = null;
+  enclosure: string;
   author: string;
 }
