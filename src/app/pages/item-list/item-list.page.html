@@ -6,9 +6,10 @@
 
 <ion-content>
   <ion-grid fixed>
-    <ion-row>
+    <ion-row *ngIf="(items$ | async)?.length > 0; else loading">
       <ion-col size="12" size-md="6" *ngFor="let item of items$ | async">
-        <app-item-headline [item]="item" (delete)="deleteItem($event)" (update)="updateItem($event)"></app-item-headline>
+        <app-item-headline [item]="item" (delete)="deleteItem($event)" (update)="updateItem($event)">
+        </app-item-headline>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -19,3 +20,32 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<!-- Skeleton screen -->
+<ng-template #loading>
+  <ion-row>
+    <ion-col size="12" size-md="6" *ngFor="let number of [0,1,2,3,4]">
+      <ion-list>
+        <ion-list-header>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ng-template>
