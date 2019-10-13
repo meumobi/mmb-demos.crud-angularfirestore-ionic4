@@ -53,21 +53,21 @@ export class ItemHeadlineComponent {
     await actionSheet.present();
   }
 
-  delete(event, id: string) {
+  delete(event, item: Item) {
     event.preventDefault();
     event.stopPropagation();
     this.action.emit({
       functionName: 'deleteItem',
-      functionParam: { id }
+      functionParam: { item }
     });
   }
 
-  update(event, id: string) {
+  update(event, item: Item) {
     event.preventDefault();
     event.stopPropagation();
     this.action.emit({
       functionName: 'updateItem',
-      functionParam: { id }
+      functionParam: { item }
     });
   }
 

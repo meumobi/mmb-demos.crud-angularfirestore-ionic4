@@ -4,6 +4,7 @@ import { Item } from '../../shared/item.model';
 import { ItemService } from '../../shared/item.service';
 import { Observable } from 'rxjs';
 import { publishReplay, refCount } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-item-list',
@@ -16,7 +17,8 @@ export class ItemListPage implements OnInit {
 
   constructor(
     private itemsService: ItemService,
-    private router: Router
+    private router: Router,
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -24,17 +26,36 @@ export class ItemListPage implements OnInit {
   }
 
   handleItemAction(event) {
-    console.log('Handle item: ', event);
     const functionName = event.functionName;
     if (this[functionName]) {
       // method exists on the component
       const param = event.functionParam;
-      this[functionName](param); // call it
+      this[functionName](param.item); // call it
     }
   }
 
-  deleteItem(param: any) {
-    this.itemsService.remove(param.id);
+  async deleteItem(item: Item) {
+    const alert = await this.alertController.create({
+      header: item.title,
+      message: 'Are you sure you want to delete?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel: ', item.title);
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.itemsService.remove(item.id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   updateItem(param: any) {
