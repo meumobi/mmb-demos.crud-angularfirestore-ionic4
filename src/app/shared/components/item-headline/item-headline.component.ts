@@ -6,6 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { Item } from '../../item.model';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,15 +20,59 @@ export class ItemHeadlineComponent {
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() update: EventEmitter<string> = new EventEmitter<string>();
 
-  deleteItem(event, id: string) {
+  constructor(public actionSheetController: ActionSheetController) {}
+
+  async presentActionSheet(event, item: Item) {
     event.preventDefault();
     event.stopPropagation();
-    this.delete.emit(id);
+    const actionSheet = await this.actionSheetController.create({
+      header: item.title,
+      buttons: [{
+        text: 'Delete',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.delete.emit(item.id);
+        }
+      }, {
+        text: 'Update',
+        icon: 'create',
+        handler: () => {
+          this.update.emit(item.id);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
-  updateItem(event, id: string) {
+  openCategory(event, item) {
     event.preventDefault();
     event.stopPropagation();
-    this.update.emit(id);
+    console.log('Open category');
+  }
+
+  like(event, item) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('Like clicked');
+  }
+
+  favorite(event, item) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('Favorite clicked');
+  }
+
+  share(event, item) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('Share clicked');
   }
 }
