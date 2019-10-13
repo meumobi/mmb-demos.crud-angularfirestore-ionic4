@@ -5,7 +5,7 @@
     <ion-card-subtitle>John Smith - {{ item.createdAt.seconds*1000 | date: 'MMM d' }}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    {{ item.description }}
+    {{ item.description | truncate:120 }}
     <section>
       <ion-chip *ngFor="let tag of tags; let i = index" (click)="filterByTag($event, tag)">
         <ion-label>{{ tag }}</ion-label>

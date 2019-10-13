@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ItemHeadlineComponent } from './components/item-headline/item-headline.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-
+import { TruncateModule } from '@yellowspot/ng-truncate';
 
 @NgModule({
   declarations: [
@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     IonicModule,
     RouterModule,
+    TruncateModule,
   ],
   exports: [
     ItemHeadlineComponent,
