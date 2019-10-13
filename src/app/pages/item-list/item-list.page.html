@@ -8,7 +8,7 @@
   <ion-grid fixed>
     <ion-row *ngIf="(items$ | async)?.length > 0; else loading">
       <ion-col size="12" size-md="6" *ngFor="let item of items$ | async">
-        <app-item-headline [item]="item" (delete)="deleteItem($event)" (update)="updateItem($event)">
+        <app-item-headline [item]="item" (action)="handleItemAction($event)">
         </app-item-headline>
       </ion-col>
     </ion-row>

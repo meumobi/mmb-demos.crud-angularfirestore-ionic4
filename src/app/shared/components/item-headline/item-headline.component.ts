@@ -17,8 +17,9 @@ import { ActionSheetController } from '@ionic/angular';
 export class ItemHeadlineComponent {
 
   @Input() item: Item;
-  @Output() delete: EventEmitter<string> = new EventEmitter<string>();
-  @Output() update: EventEmitter<string> = new EventEmitter<string>();
+  @Output() action: EventEmitter<object> = new EventEmitter<object>();
+
+  tags = ['admin', 'São Paulo', 'comunicação'];
 
   constructor(public actionSheetController: ActionSheetController) {}
 
@@ -32,13 +33,13 @@ export class ItemHeadlineComponent {
         role: 'destructive',
         icon: 'trash',
         handler: () => {
-          this.delete.emit(item.id);
+          // this.action.emit(item.id);
         }
       }, {
         text: 'Update',
         icon: 'create',
         handler: () => {
-          this.update.emit(item.id);
+          // this.update.emit(item.id);
         }
       }, {
         text: 'Cancel',
@@ -52,10 +53,22 @@ export class ItemHeadlineComponent {
     await actionSheet.present();
   }
 
-  openCategory(event, item) {
+  delete(event, id: string) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('Open category');
+    this.action.emit({
+      functionName: 'deleteItem',
+      functionParam: { id }
+    });
+  }
+
+  update(event, id: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.action.emit({
+      functionName: 'updateItem',
+      functionParam: { id }
+    });
   }
 
   like(event, item) {
@@ -74,5 +87,11 @@ export class ItemHeadlineComponent {
     event.preventDefault();
     event.stopPropagation();
     console.log('Share clicked');
+  }
+
+  filterByTag(event, tag) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('Tag clicked');
   }
 }

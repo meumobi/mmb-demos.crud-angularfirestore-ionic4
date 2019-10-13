@@ -23,11 +23,21 @@ export class ItemListPage implements OnInit {
     this.items$ = this.itemsService.items$.pipe(publishReplay(1), refCount());
   }
 
-  deleteItem(id: string) {
-    this.itemsService.remove(id);
+  handleItemAction(event) {
+    console.log('Handle item: ', event);
+    const functionName = event.functionName;
+    if (this[functionName]) {
+      // method exists on the component
+      const param = event.functionParam;
+      this[functionName](param); // call it
+    }
   }
 
-  updateItem(id: string) {
-    this.router.navigate([`/item-edit/${id}`]);
+  deleteItem(param: any) {
+    this.itemsService.remove(param.id);
+  }
+
+  updateItem(param: any) {
+    this.router.navigate([`/item-edit/${param.id}`]);
   }
 }

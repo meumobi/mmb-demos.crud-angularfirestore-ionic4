@@ -6,19 +6,27 @@
   </ion-card-header>
   <ion-card-content>
     {{ item.description }}
+    <section>
+      <ion-chip *ngFor="let tag of tags; let i = index" (click)="filterByTag($event, tag)">
+        <ion-label>{{ tag }}</ion-label>
+      </ion-chip>
+    </section>
   </ion-card-content>
   <ion-row class="ion-justify-content-center">
-    <ion-col size="6" class="ion-text-left">
-      <ion-button fill="clear" size="small" color="primary" (click)="openCategory($event, item)" *ngIf="item.id">
-        News
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="delete($event, item.id)" *ngIf="item.id">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Delete
       </ion-button>
     </ion-col>
- <!--      <ion-button fill="clear" size="small" color="primary" (click)="updateItem($event, item.id)" *ngIf="item.id">
+    <ion-col size="4" class="ion-text-left">
+      <ion-button fill="clear" size="small" color="primary" (click)="update($event, item.id)" *ngIf="item.id">
         <ion-icon name="create" slot="start"></ion-icon>
         Update
-      </ion-button> -->
-    <ion-col size="6" class="ion-text-right">
-        <ion-button fill="clear" size="small" color="primary" (click)="like($event, item)">
+      </ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-right">
+<!--         <ion-button fill="clear" size="small" color="primary" (click)="like($event, item)">
             <ion-icon name="heart" slot="start"></ion-icon>
         </ion-button>
         <ion-button fill="clear" size="small" color="primary" (click)="favorite($event, item)">
@@ -28,8 +36,8 @@
           <ion-icon name="share" slot="start"></ion-icon>
         </ion-button>
         <ion-button fill="clear" size="small" color="primary" (click)="presentActionSheet($event, item)">
-            <ion-icon name="more" slot="start"></ion-icon>
-          </ion-button>
+          <ion-icon name="more" slot="start"></ion-icon>
+        </ion-button> -->
     </ion-col>
   </ion-row>
 </ion-card>
