@@ -49,7 +49,7 @@ constructor(
 
   this.editForm = formBuilder.group({
     title: ['', Validators.required],
-    // groups: ['', Validators.required],
+    tags: [''],
     enclosure: ['', Validators.pattern(urlRegex)],
     description: ['', Validators.required],
   });
@@ -66,13 +66,7 @@ constructor(
       this.itemService.getById(this.itemId).pipe(first()).toPromise().then(
         data => {
           this.item = data;
-          /**
-           * Get a subset of a javascript object's properties
-           * Using Object Destructuring and Property Shorthand
-           * https://stackoverflow.com/a/39333479/4982169
-           */
-          const picked = (({ title, enclosure, description }) => ({ title, enclosure, description }))(data);
-          this.editForm.setValue(picked);
+          this.editForm.patchValue(this.item);
         }
       );
     }
@@ -101,7 +95,6 @@ constructor(
   }
 
   private update() {
-    // const resultItem = {...this.item, ...this.editForm.value};
     this.itemService.update(this.itemId, this.editForm.value)
     .then(docRef => {
       this.router.navigate([`/item-detail/${this.itemId}`]);

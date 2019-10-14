@@ -7,8 +7,8 @@
   <ion-card-content>
     {{ item.description | truncate:120 }}
     <section>
-      <ion-chip *ngFor="let tag of tags; let i = index" (click)="filterByTag($event, tag)">
-        <ion-label>{{ tag }}</ion-label>
+      <ion-chip *ngFor="let tag of item.tags; let i = index" (click)="filterByTag($event, tag)">
+        <ion-label>{{ tag.name }}</ion-label>
       </ion-chip>
     </section>
   </ion-card-content>

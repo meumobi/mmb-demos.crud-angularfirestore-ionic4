@@ -14,13 +14,26 @@
       <ion-input formControlName="title" type="text">
       </ion-input>
     </ion-item>
+<!--     <ion-item>
+      <ion-label>Target audience</ion-label>
+      <ion-toggle checked="item?.tags.length > 0"></ion-toggle>
+    </ion-item> -->
     <ion-item>
-      <ion-label floating>Target groups</ion-label>
-      <ion-chip *ngFor="let group of groups; let i = index" (click)="toggleGroupCheck(i)">
-        <ion-icon name="checkmark" *ngIf="group.selected"></ion-icon>
-        <ion-label>{{ group.name }}</ion-label>
-      </ion-chip>
+      <ion-label floating>Tags</ion-label>
+      <tag-input formControlName="tags"
+        [editable]="true"
+        [identifyBy]="'id'"
+        [displayBy]="'name'"
+      >
+      </tag-input>
     </ion-item>
+    <ion-item>
+        <ion-label floating>Suggested tags</ion-label>
+        <ion-chip *ngFor="let group of groups; let i = index" (click)="toggleGroupCheck(i)">
+          <ion-icon name="checkmark" *ngIf="group.selected"></ion-icon>
+          <ion-label>{{ group.name }}</ion-label>
+        </ion-chip>
+      </ion-item>
     <ion-item>
       <ion-label stacked>Enclosure</ion-label>
       <ion-input formControlName="enclosure" type="text">

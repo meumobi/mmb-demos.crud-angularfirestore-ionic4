@@ -19,8 +19,6 @@ export class ItemHeadlineComponent {
   @Input() item: Item;
   @Output() action: EventEmitter<object> = new EventEmitter<object>();
 
-  tags = ['admin', 'São Paulo', 'comunicação'];
-
   constructor(public actionSheetController: ActionSheetController) {}
 
   async presentActionSheet(event, item: Item) {

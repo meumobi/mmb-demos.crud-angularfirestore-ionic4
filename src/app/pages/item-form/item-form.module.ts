@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
+import { TagInputModule } from 'ngx-chips';
 
 import { ItemFormPage } from './item-form.page';
 
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    TagInputModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
