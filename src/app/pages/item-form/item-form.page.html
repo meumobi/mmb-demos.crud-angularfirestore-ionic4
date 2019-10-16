@@ -9,43 +9,27 @@
 
 <ion-content>
   <form [formGroup]="editForm" (submit)="save()">
-    <ion-item>
-      <ion-label stacked>Title</ion-label>
-      <ion-input formControlName="title" type="text">
-      </ion-input>
-    </ion-item>
-<!--     <ion-item>
-      <ion-label>Target audience</ion-label>
-      <ion-toggle checked="item?.tags.length > 0"></ion-toggle>
-    </ion-item> -->
-    <ion-item>
-      <ion-label floating>Tags</ion-label>
-      <tag-input formControlName="tags"
-        [editable]="true"
-        [identifyBy]="'id'"
-        [displayBy]="'name'"
-      >
-      </tag-input>
-    </ion-item>
-    <ion-item>
-        <ion-label floating>Suggested tags</ion-label>
-        <ion-chip *ngFor="let group of groups; let i = index" (click)="toggleGroupCheck(i)">
-          <ion-icon name="checkmark" *ngIf="group.selected"></ion-icon>
-          <ion-label>{{ group.name }}</ion-label>
-        </ion-chip>
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input formControlName="title" type="text">
+        </ion-input>
       </ion-item>
-    <ion-item>
-      <ion-label stacked>Enclosure</ion-label>
-      <ion-input formControlName="enclosure" type="text">
-      </ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label fixed>Description</ion-label>
-      <ion-textarea formControlName="description" type="text">
-      </ion-textarea>
-    </ion-item>
-
+      <ion-item>
+        <ion-label position="stacked">Tags</ion-label>
+        <tag-input formControlName="tags" [identifyBy]="'id'" [displayBy]="'name'"></tag-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Enclosure</ion-label>
+        <ion-input formControlName="enclosure" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea formControlName="description" type="text">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
     <ion-button expand="block" type="submit" [disabled]="!editForm.valid">
       Save
     </ion-button>
