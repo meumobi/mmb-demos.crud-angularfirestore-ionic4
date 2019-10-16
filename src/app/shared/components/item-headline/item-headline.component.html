@@ -12,21 +12,19 @@
       </ion-chip>
     </section>
   </ion-card-content>
-  <ion-row class="ion-justify-content-center">
-    <ion-col size="4" class="ion-text-left">
+  <ion-row class="ion-justify-content-left">
+    <ion-col size="8" class="ion-text-left">
       <ion-button fill="clear" size="small" color="primary" (click)="delete($event, item)" *ngIf="item.id">
         <ion-icon name="trash" slot="start"></ion-icon>
         Delete
       </ion-button>
-    </ion-col>
-    <ion-col size="4" class="ion-text-left">
       <ion-button fill="clear" size="small" color="primary" (click)="update($event, item)" *ngIf="item.id">
-        <ion-icon name="create" slot="start"></ion-icon>
-        Update
-      </ion-button>
+          <ion-icon name="create" slot="start"></ion-icon>
+          Update
+        </ion-button>
     </ion-col>
     <ion-col size="4" class="ion-text-right">
-<!--         <ion-button fill="clear" size="small" color="primary" (click)="like($event, item)">
+      <!--         <ion-button fill="clear" size="small" color="primary" (click)="like($event, item)">
             <ion-icon name="heart" slot="start"></ion-icon>
         </ion-button>
         <ion-button fill="clear" size="small" color="primary" (click)="favorite($event, item)">
@@ -34,10 +32,10 @@
         </ion-button>
         <ion-button fill="clear" size="small" color="primary" (click)="share($event, item)">
           <ion-icon name="share" slot="start"></ion-icon>
-        </ion-button>
+        </ion-button> -->
         <ion-button fill="clear" size="small" color="primary" (click)="presentActionSheet($event, item)">
           <ion-icon name="more" slot="start"></ion-icon>
-        </ion-button> -->
+        </ion-button>
     </ion-col>
   </ion-row>
 </ion-card>

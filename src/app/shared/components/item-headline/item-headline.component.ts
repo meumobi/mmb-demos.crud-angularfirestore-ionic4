@@ -25,19 +25,18 @@ export class ItemHeadlineComponent {
     event.preventDefault();
     event.stopPropagation();
     const actionSheet = await this.actionSheetController.create({
-      header: item.title,
       buttons: [{
         text: 'Delete',
         role: 'destructive',
         icon: 'trash',
         handler: () => {
-          // this.action.emit(item.id);
+          this.delete(event, item);
         }
       }, {
         text: 'Update',
         icon: 'create',
         handler: () => {
-          // this.update.emit(item.id);
+          this.update(event, item);
         }
       }, {
         text: 'Cancel',
