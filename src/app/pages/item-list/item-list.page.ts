@@ -22,6 +22,9 @@ export class ItemListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    /**
+     * pipe required to display loading skeleton
+     */
     this.items$ = this.itemsService.items$.pipe(publishReplay(1), refCount());
   }
 
