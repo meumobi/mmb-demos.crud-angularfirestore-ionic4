@@ -1,32 +1,62 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button fill="clear" size="small" routerLink="/">
+      <ion-button fill="clear" size="small" (click)="navigateToItemsList()">
         <ion-icon name="arrow-back" slot="start"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>item-detail</ion-title>
+    <ion-buttons slot="end" *ngIf="item">
+        <ion-button fill="clear" size="small" (click)="presentActionSheet($event, item)">
+          <ion-icon name="more" slot="start"></ion-icon>
+        </ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="about-header" *ngIf="item?.enclosure">
-    <ion-img [src]="item.enclosure"></ion-img>
+<ion-content *ngIf="item else loading">
+  <div class="about-header">
+    <ion-img [src]="item.enclosure" *ngIf="item.enclosure else placeholder"></ion-img>
   </div>
   <div class="about-info">
-    <h4 class="ion-padding-start">{{ item?.title }}</h4>
+    <h4 class="ion-padding-start">{{ item.title }}</h4>
 
     <ion-list>
       <ion-item>
         <ion-icon name="calendar" slot="start"></ion-icon>
-        <ion-label>Created at {{ item?.createdAt.seconds*1000 | date: 'medium' }}</ion-label>
+        <ion-label>Created at {{ item.createdAt.seconds*1000 | date: 'medium' }}</ion-label>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="item.modifiedAt">
         <ion-icon name="calendar" slot="start"></ion-icon>
-        <ion-label>Modified at {{ item?.modifiedAt.seconds*1000 | date: 'medium' }}</ion-label>
+        <ion-label>Modified at {{ item.modifiedAt.seconds*1000 | date: 'medium' }}</ion-label>
       </ion-item>
     </ion-list>
 
-    <p class="ion-padding-start ion-padding-end">{{ item?.description }}</p>
+    <p class="ion-padding-start ion-padding-end">{{ item.description }}</p>
   </div>
 </ion-content>
+
+<ng-template #loading>
+  <ion-content>
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-content>
+</ng-template>
+
+<ng-template #placeholder>
+  <ion-img src="https://ionicframework.com/docs/demos/api/card/madison.jpg"></ion-img>
+</ng-template>
