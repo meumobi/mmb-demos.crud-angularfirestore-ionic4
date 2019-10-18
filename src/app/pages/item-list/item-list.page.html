@@ -6,13 +6,25 @@
 
 <ion-content>
   <ion-grid fixed>
-    <ion-row *ngIf="(items$ | async)?.length > 0; else loading">
+    <ion-row>
+      <ion-toolbar *ngIf="currentTag let tag">
+        <ion-chip (click)="resetFilters()">
+          <ion-label>{{ tag.name }}</ion-label>
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-chip>
+      </ion-toolbar>
+    </ion-row>
+    <ion-row *ngIf="items$ | async; let items;else loading">
       <ion-col size="12" size-md="6" *ngFor="let item of items$ | async">
-        <app-item-headline [item]="item" (action)="handleItemAction($event)">
+        <app-item-headline [item]="item" (action)="handleItemAction($event)" (filter)="filterByTag($event)">
         </app-item-headline>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <div *ngIf="(items$ | async)?.length == 0" class="empty-illustration">
+    <img src="/assets/undraw_empty.svg"/>
+  </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>

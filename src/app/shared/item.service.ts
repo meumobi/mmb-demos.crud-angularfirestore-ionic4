@@ -3,14 +3,20 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreDocument,
-  DocumentReference
+  DocumentReference,
+  Query
 } from '@angular/fire/firestore';
 
+/**
+ * Required import to use firebase.firestore.FieldValue
+ * https://stackoverflow.com/a/52220012/4982169
+ */
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
-import { Observable } from 'rxjs';
-import { Item } from './item.model';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Item, Tag } from './item.model';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +24,29 @@ import { Item } from './item.model';
 export class ItemService {
 
   private itemsCollection: AngularFirestoreCollection<Item>;
+  private itemDoc: AngularFirestoreDocument<Item>;
+
   private collectionPath = 'items';
+  private tagFilter$: BehaviorSubject<Tag>;
 
   constructor(
     private afs: AngularFirestore
   ) {
+    this.tagFilter$ = new BehaviorSubject(null);
     this.itemsCollection = afs.collection<Item>(this.collectionPath, ref => ref.orderBy('publishedAt', 'desc'));
   }
 
-  get items$(): Observable<Item[]> {
-    return this.itemsCollection.valueChanges({idField: 'id'});
+  get items$() {
+    return this.tagFilter$.pipe(
+      switchMap(tag => {
+        return this.afs.collection<Item>(this.collectionPath, ref => {
+          let query: Query = ref;
+          if (tag) { query = query.where('tag', 'array-contains', tag); }
+          query = query.orderBy('publishedAt', 'desc');
+          return query;
+        }).valueChanges({ idField: 'id' });
+      }
+    ));
   }
 
 /**
@@ -49,7 +68,17 @@ export class ItemService {
   }
 
   public getById(id: string): Observable<any> {
+    // this.itemDoc = this.afs.doc<Item>('items/' + id);
     return this.itemsCollection.doc(id).valueChanges();
+  }
+
+  public filterByTag(tag: Tag) {
+    console.log('filterByTag: ', tag);
+    this.tagFilter$.next(tag);
+  }
+
+  public resetFilters() {
+    this.tagFilter$.next(null);
   }
 
   public remove(id: string): Promise<void> {

@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Item } from '../../item.model';
+import { Item, Tag } from '../../item.model';
 import { ActionSheetController } from '@ionic/angular';
 
 @Component({
@@ -18,6 +18,7 @@ export class ItemHeadlineComponent {
 
   @Input() item: Item;
   @Output() action: EventEmitter<object> = new EventEmitter<object>();
+  @Output() filter: EventEmitter<object> = new EventEmitter<object>();
 
   constructor(public actionSheetController: ActionSheetController) {}
 
@@ -86,9 +87,9 @@ export class ItemHeadlineComponent {
     console.log('Share clicked');
   }
 
-  filterByTag(event, tag) {
+  filterByTag(event, tag: Tag) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('Tag clicked');
+    this.filter.emit(tag);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Item } from '../../shared/item.model';
+import { Item, Tag } from '../../shared/item.model';
 import { ItemService } from '../../shared/item.service';
 import { Observable } from 'rxjs';
 import { publishReplay, refCount } from 'rxjs/operators';
@@ -14,18 +14,16 @@ import { AlertController } from '@ionic/angular';
 export class ItemListPage implements OnInit {
 
   items$: Observable<Item[]>;
+  currentTag: Tag;
 
   constructor(
     private itemsService: ItemService,
     private router: Router,
     public alertController: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {
-    /**
-     * pipe required to display loading skeleton
-     */
-    this.items$ = this.itemsService.items$.pipe(publishReplay(1), refCount());
+    this.items$ = this.itemsService.items$;
   }
 
   handleItemAction(event) {
@@ -39,8 +37,7 @@ export class ItemListPage implements OnInit {
 
   async deleteItem(item: Item) {
     const alert = await this.alertController.create({
-      header: item.title,
-      message: 'Are you sure you want to delete?',
+      message: 'Are you sure you want to delete this?',
       buttons: [
         {
           text: 'Cancel',
@@ -61,7 +58,18 @@ export class ItemListPage implements OnInit {
     await alert.present();
   }
 
-  updateItem(param: any) {
-    this.router.navigate([`/item-edit/${param.id}`]);
+  updateItem(item: Item) {
+    this.router.navigate([`/item-edit/${item.id}`]);
+  }
+
+  filterByTag(tag: Tag) {
+    console.log('Filter by tag: ', tag);
+    this.currentTag = tag;
+    this.itemsService.filterByTag(tag);
+  }
+
+  resetFilters() {
+    this.currentTag = null;
+    this.itemsService.resetFilters();
   }
 }

@@ -1,7 +1,7 @@
 import { Timestamp } from '@firebase/firestore-types';
 
 
-interface Tags {
+export interface Tag {
   id?: string;
   name: string;
 }
@@ -12,7 +12,7 @@ export class Item {
   createdAt: Timestamp;
   modifiedAt: Timestamp;
   publishedAt: Timestamp;
-  tags: Tags[];
+  tags: Tag[];
   link: string;
   enclosure: string;
   author: string;
