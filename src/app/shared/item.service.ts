@@ -15,7 +15,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Item, Tag } from './item.model';
+import { Item, Tag, ItemField } from './item.model';
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class ItemService {
     private afs: AngularFirestore
   ) {
     this.tagFilter$ = new BehaviorSubject(null);
-    this.itemsCollection = afs.collection<Item>(this.collectionPath, ref => ref.orderBy('publishedAt', 'desc'));
+    this.itemsCollection = afs.collection<Item>(this.collectionPath, ref => ref.orderBy(ItemField.PUBLISHED_AT, 'desc'));
   }
 
   get items$() {
@@ -41,8 +41,8 @@ export class ItemService {
       switchMap(tag => {
         return this.afs.collection<Item>(this.collectionPath, ref => {
           let query: Query = ref;
-          if (tag) { query = query.where('tag', 'array-contains', tag); }
-          query = query.orderBy('publishedAt', 'desc');
+          if (tag) { query = query.where(ItemField.TAGS, 'array-contains', tag); }
+          query = query.orderBy(ItemField.PUBLISHED_AT, 'desc');
           return query;
         }).valueChanges({ idField: 'id' });
       }

@@ -1,6 +1,10 @@
 import { Timestamp } from '@firebase/firestore-types';
 
-
+export enum ItemField {
+  CREATED_AT = 'createdAt',
+  PUBLISHED_AT = 'publishedAt',
+  TAGS = 'tags'
+}
 export interface Tag {
   id?: string;
   name: string;
