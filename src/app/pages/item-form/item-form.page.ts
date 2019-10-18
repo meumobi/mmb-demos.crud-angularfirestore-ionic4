@@ -1,38 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Item } from 'src/app/shared/item.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../shared/item.service';
 import { first } from 'rxjs/operators';
 
-export interface Group {
-  name: string;
-  selected: boolean;
-}
-
-const GROUPS = [
-  {
-    name: 'admin',
-    selected: false
-  },
-  {
-    name: 'São Paulo',
-    selected: false
-  },
-  {
-    name: 'comunicação',
-    selected: true
-  }
-];
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.page.html',
   styleUrls: ['./item-form.page.scss'],
 })
 
-export class ItemFormPage implements OnInit {
+export class ItemFormPage implements OnInit, OnDestroy {
 
-  groups: Group[] = [];
   item: Item;
   private itemId: string;
   private createAction: boolean;
@@ -56,7 +36,7 @@ constructor(
 }
 
   ngOnInit() {
-    this.groups = GROUPS;
+    console.log('ItemFormPage: OnInit');
     this.itemId = this.activatedRoute.snapshot.paramMap.get('id');
     this.createAction = !this.itemId; // If itemId is null then is a create action (vs update)
 
@@ -72,8 +52,8 @@ constructor(
     }
   }
 
-  toggleGroupCheck(i: number) {
-    this.groups[i].selected = !this.groups[i].selected; // toggle boolean value (only works with 0 and 1)
+  ngOnDestroy() {
+    console.log('ItemFormPage: OnDestroy');
   }
 
   save() {

@@ -13,6 +13,11 @@ import { TruncateModule } from '@yellowspot/ng-truncate';
     CommonModule,
     IonicModule,
     RouterModule,
+    /**
+     * A better solution should be to truncate text to the nearest whole word
+     * http://codebuckets.com/2018/01/23/angular-pipe-to-truncate-text-to-the-nearest-whole-word/
+     * OR https://stackoverflow.com/a/50651908/4982169
+     */
     TruncateModule,
   ],
   exports: [

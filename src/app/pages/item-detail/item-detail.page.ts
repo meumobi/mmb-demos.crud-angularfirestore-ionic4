@@ -71,8 +71,7 @@ export class ItemDetailPage implements OnInit, OnDestroy {
 
   async deleteItem(id: string) {
     const alert = await this.alertController.create({
-      header: 'Confirm',
-      message: 'Are you sure you want to delete?',
+      message: 'Are you sure you want to delete this?',
       buttons: [
         {
           text: 'Cancel',
