@@ -1,3 +1,5 @@
+[![build status](https://github.com/meumobi/mmb-demos.crud-angularfirestore-ionic4/workflows/Build/badge.svg)](https://github.com/meumobi/mmb-demos.crud-angularfirestore-ionic4/actions)
+
 # mmb-demos.crud-angularfirestore-ionic4</h1>
 **Tutorial** [Create a CRUD App with Ionic 4, Firestore and AngularFire 5.2+](http://meumobi.github.io/ionic/2019/05/29/crud-ionic4-angulafire5-app.html)
 
@@ -58,27 +60,26 @@ export const environment = {
 
 ## Todo
 ### Development workflow tools
-- [ ] Unit and e2e tests
-- [ ] Continuous integration with Travis CI
-
-  - [angular.io - Configure project to Travis CI](https://angular.io/guide/testing#configure-project-for-travis-ci)
+- [x] Unit and e2e tests
+  - [angular.io - Unit and integration testing Angular apps](https://angular.io/guide/testing)
+- [x] Continuous integration with Github Actions
+  - [Building Angular CLI Projects with Github Actions](https://coryrylan.com/blog/building-angular-cli-projects-with-github-actions)
 - [ ] Automated dependency updates with Greenkeeper
-
   - https://greenkeeper.io/docs.html#installation
 
 ### UI/UX
 
-- [ ] Infinite scroll / Virtual Scroll
+- [ ] Infinite scroll
 - [x] Rendering placeholder: skeleton loading
   - https://ionicframework.com/docs/api/skeleton-text
   - https://ionicthemes.com/tutorials/about/improved-ux-for-ionic-apps-with-skeleton-loading-screens
 
 ### Firebase hosting & deploy
-- [] Auto deploy to Firebase hosting
+- [ ] Auto deploy to Firebase hosting
   - [Use @angular/fire to automatically deploy an Angular application to Firebase hosting](https://github.com/angular/angularfire2/blob/master/docs/deploy/getting-started.md)
 
 ### Build PWA and native App
-- [] PWA
+- [ ] PWA
   - https://ionicframework.com/docs/publishing/progressive-web-app
   - https://alligator.io/ionic/pwas/
 

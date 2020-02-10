@@ -4,12 +4,16 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
+    "build:ci": "npm run clean && npm run test && npm run build:prod",
+    "build:prod": "ng build --prod",
+    "build": "ng build",
+    "clean": "rimraf ./dist",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test:watch": "ng test",
+    "test": "ng test --watch=false --browsers=ChromeHeadlessCustom"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +31,7 @@
     "@ionic-native/status-bar": "^5.21.2",
     "@ionic/angular": "^4.11.10",
     "@yellowspot/ng-truncate": "^1.5.1",
+    "cordova-android": "8.1.0",
     "core-js": "^2.5.4",
     "firebase": "^7.8.1",
     "ngx-chips": "^2.0.2",
@@ -55,6 +60,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
+    "puppeteer": "^2.1.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
