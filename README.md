@@ -66,10 +66,13 @@ export const environment = {
   - [Building Angular CLI Projects with Github Actions](https://coryrylan.com/blog/building-angular-cli-projects-with-github-actions)
 - [ ] Automated dependency updates with Greenkeeper
   - https://greenkeeper.io/docs.html#installation
+- [ ] Add standard-version
 
 ### UI/UX
 
 - [ ] Infinite scroll
+- [ ] Convert form screen on modal
+  - based on [UX best practices](https://uxplanet.org/modality-the-one-ux-concept-you-need-to-understand-when-designing-intuitive-user-interfaces-e5e941c7acb1) should use modal with forms
 - [x] Rendering placeholder: skeleton loading
   - https://ionicframework.com/docs/api/skeleton-text
   - https://ionicthemes.com/tutorials/about/improved-ux-for-ionic-apps-with-skeleton-loading-screens
